@@ -28,9 +28,13 @@ public class MemberService {
 	}
 	
 	public Long getStudentsCount() {
-		return memberRepository.countByType(Constants.MEMBER_22IT1);
+		return memberRepository.countByType(Constants.MEMBER_22IT2);
 	}
-	
+
+	public Long getOtherCount() {
+		return memberRepository.countByType(Constants.MEMBER_22IT3);
+	}
+
 	public List<Member> getAll() {
 		return memberRepository.findAllByOrderByFirstNameAscMiddleNameAscLastNameAsc();
 	}

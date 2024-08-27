@@ -6,17 +6,21 @@
 <th:block th:fragment="tiles">
 	<!-- top tiles start -->
 	<div class="row tile_count">
+<!--		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">-->
+<!--			<span class="count_top "><i class="fa fa-user"></i>  Members</span>-->
+<!--			<div class="count green" th:text="${topTiles.totalMembers}"></div>-->
+<!--		</div>-->
 		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-			<span class="count_top "><i class="fa fa-user"></i>  Members</span>
-			<div class="count green" th:text="${topTiles.totalMembers}"></div>
-		</div>
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-			<span class="count_top "><i class="fa fa-user"></i>  Parents</span>
+			<span class="count_top "><i class="fa fa-user"></i>  22IT1</span>
 			<div class="count" th:text="${topTiles.totalParents}"></div>
 		</div>
 		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-			<span class="count_top "><i class="fa fa-user"></i>  Students</span>
+			<span class="count_top "><i class="fa fa-user"></i>  22IT2</span>
 			<div class="count" th:text="${topTiles.totalStudents}"></div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+			<span class="count_top "><i class="fa fa-user"></i>  22IT3</span>
+			<div class="count" th:text="${topTiles.totalOthers}"></div>
 		</div>
 		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 			<span class="count_top"><i class="fa fa-sitemap"></i>  Categories</span>

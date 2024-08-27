@@ -28,6 +28,7 @@ public class HomeService {
 		map.put("totalParents", memberService.getParentsCount());
 		map.put("totalCategories", categoryService.getTotalCount());
 		map.put("totalBooks", bookService.getTotalCount());
+		map.put("totalOthers",memberService.getOtherCount());
 		map.put("totalIssuedBooks", bookService.getTotalIssuedBooks());
 		return map;
 	}
