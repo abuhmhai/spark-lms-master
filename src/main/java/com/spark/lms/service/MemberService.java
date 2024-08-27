@@ -24,11 +24,11 @@ public class MemberService {
 	}
 	
 	public Long getParentsCount() {
-		return memberRepository.countByType(Constants.MEMBER_PARENT);
+		return memberRepository.countByType(Constants.MEMBER_22IT1);
 	}
 	
 	public Long getStudentsCount() {
-		return memberRepository.countByType(Constants.MEMBER_STUDENT);
+		return memberRepository.countByType(Constants.MEMBER_22IT1);
 	}
 	
 	public List<Member> getAll() {
