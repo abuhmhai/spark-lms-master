@@ -90,8 +90,8 @@
 				                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth <span class="required">*</span></label>
 				                        <div class="col-md-2 col-sm-2 col-xs-12">
 				                        	
-				                        	<input type="text" class="form-control" data-inputmask="'mask': '99-99-9999'" name="dateOfBirth" id="dateOfBirth"
-				                        	 th:value="${member.dateOfBirth}?${#dates.format(member.dateOfBirth, 'dd-mm-yyyy')}:''" >
+				                        	<input type="text" class="form-control" data-inputmask="'mask': '99-Aaa-9999'" name="dateOfBirth" id="dateOfBirth"
+				                        	 th:value="${member.dateOfBirth}?${#dates.format(member.dateOfBirth, 'dd-MMM-yyyy')}:''" >
 				                        	<span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
 				                        </div>
 				                        <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
