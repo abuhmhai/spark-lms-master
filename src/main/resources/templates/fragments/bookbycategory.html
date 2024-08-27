@@ -27,6 +27,9 @@
         <tr th:if="${#lists.isEmpty(booksByCategory.get(category))}">
           <td colspan="2">No books available in this category.</td>
         </tr>
+        <tr th:if="${!#lists.isEmpty(booksByCategory.get(category))}">
+          <td colspan="2" th:text="'Total Books: ' + ${booksByCategory.get(category).size()}"></td>
+        </tr>
         </tbody>
       </table>
     </div>
