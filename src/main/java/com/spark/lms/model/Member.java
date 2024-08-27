@@ -79,7 +79,8 @@ public class Member implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 		this.joiningDate = joiningDate;
 	}
-	
+
+	//getter and setter
 	public Member() {}
 
 	public Long getId() {
