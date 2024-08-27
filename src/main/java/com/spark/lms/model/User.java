@@ -64,6 +64,7 @@ public class User implements Serializable {
 	@Column(name = "last_modified_date")
 	private Date lastModifiedDate;
 
+    //getter and setter
 	public Long getId() {
 		return id;
 	}
