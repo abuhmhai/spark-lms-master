@@ -2,48 +2,95 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CMC Library - Login</title>
-	
-	<th:block th:replace="fragments/styles :: common"></th:block>
-	
+    <title>CMC Library - Login</title>
+
+    <th:block th:replace="fragments/styles :: common"></th:block>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
 <body class="login">
-    <div>
-
-      <div class="login_wrapper">
-          <section class="login_content">
+<div>
+    <div class="login_wrapper">
+        <section class="login_content">
             <form th:action="@{/login}" method="post" id="loginform">
-              <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" name="username" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="javascript:void(0)" onclick="document.getElementById('loginform').submit();">Log in</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
+                <h1>Login Form</h1>
+                <div>
+                    <input type="text" class="form-control" placeholder="Username" name="username" />
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="Password" name="password" />
+                </div>
+                <div>
+                    <a class="btn btn-default submit" href="javascript:void(0)" onclick="document.getElementById('loginform').submit();">Log in</a>
+                </div>
 
                 <div class="clearfix"></div>
-                <br />
 
-                <div>
-                  <h1><i class="fa fa-paw"></i> Spark LMS</h1>
+                <div class="separator">
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <!-- Hiển thị sách theo danh mục -->
+                    <div>
+                        <h2>Books by Category</h2>
+                        <div th:each="category : ${categories}">
+                            <h3 th:text="${category.name}">Category Name</h3>
+                            <select class="form-control select2" multiple="multiple">
+                                <option th:each="book : ${category.books}"
+                                        th:value="${book.id}"
+                                        th:text="${book.title}">Book Title</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1><i class="fa fa-paw"></i> CMC - Library</h1>
+                    </div>
                 </div>
-              </div>
             </form>
-          </section>
-        </div>
-      </div>
-      
-  </body>
+        </section>
+    </div>
+</div>
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Search for a book",
+            allowClear: true
+        });
+    });
+    $('.select2').select2({
+        placeholder: "Search for a book",
+        ajax: {
+            url: '/books/search', // URL của API tìm kiếm sách
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term // term là từ khóa tìm kiếm
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function(item) {
+                        return {
+                            text: item.title,
+                            id: item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+</script>
+</body>
 </html>
