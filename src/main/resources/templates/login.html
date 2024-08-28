@@ -11,8 +11,48 @@
 
     <th:block th:replace="fragments/styles :: common"></th:block>
 
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script>
+        function filterBooks() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const categories = document.querySelectorAll('.category');
+
+            categories.forEach(category => {
+                const books = category.querySelectorAll('option');
+                let hasVisibleBooks = false;
+
+                books.forEach(book => {
+                    const bookText = book.textContent.toLowerCase();
+
+                    // Reset background color for all books
+                    book.style.backgroundColor = ''; // Reset background color
+                    book.style.display = ''; // Reset display to default (which is visible)
+
+                    if (bookText.includes(searchInput)) {
+                        book.style.display = 'block'; // Show the matching book
+                        book.style.backgroundColor = 'yellow'; // Highlight matching book
+                        hasVisibleBooks = true;
+                    } else {
+                        book.style.display = 'none'; // Hide the non-matching book
+                    }
+                });
+
+                // Toggle category visibility based on the visibility of its books
+                category.style.display = hasVisibleBooks ? 'block' : 'none';
+            });
+
+            // If the input is empty, reset the display and background of all books
+            if (searchInput === '') {
+                categories.forEach(category => {
+                    const books = category.querySelectorAll('option');
+                    books.forEach(book => {
+                        book.style.display = 'block'; // Show all books
+                        book.style.backgroundColor = ''; // Reset background color
+                    });
+                    category.style.display = 'block'; // Show all categories
+                });
+            }
+        }    </script>
+
 </head>
 <body class="login">
 <div>
@@ -38,10 +78,15 @@
 
                     <!-- Hiển thị sách theo danh mục -->
                     <div>
-                        <h2>Books by Category</h2>
-                        <div th:each="category : ${categories}">
+                        <h2>Books available on CMC - Library</h2>
+                        <!-- Search Box for Books -->
+                        <div>
+                            <h3>Search Books</h3>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search for a book..." oninput="filterBooks()" />
+                        </div>
+                        <div th:each="category : ${categories}" class="category">
                             <h3 th:text="${category.name}">Category Name</h3>
-                            <select class="form-control select2" multiple="multiple">
+                            <select class="form-control" multiple="multiple">
                                 <option th:each="book : ${category.books}"
                                         th:value="${book.id}"
                                         th:text="${book.title}">Book Title</option>
@@ -57,40 +102,5 @@
         </section>
     </div>
 </div>
-
-<!-- Select2 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: "Search for a book",
-            allowClear: true
-        });
-    });
-    $('.select2').select2({
-        placeholder: "Search for a book",
-        ajax: {
-            url: '/books/search', // URL của API tìm kiếm sách
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    q: params.term // term là từ khóa tìm kiếm
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function(item) {
-                        return {
-                            text: item.title,
-                            id: item.id
-                        }
-                    })
-                };
-            },
-            cache: true
-        }
-    });
-</script>
 </body>
 </html>
